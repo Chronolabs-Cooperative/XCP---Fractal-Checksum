@@ -2,7 +2,7 @@
 ## Fractal Bitwise Checksum/HashInfo Code
 ### Author: Dr. Simon Antony Roberts (AU) <simon@snails.email>
 
-#### Checksum 5000 - it a race that involves trains, utes, trucks, cars, bikes, planes, ufo's! ~ http://xcp.labs.coop
+#### Checksum 5000 - it a race that involves trains, utes, trucks, cars, bikes, planes, ufo's! ~ http://xcp.snails.email
 
 # Psuedomising Library Notes
 
