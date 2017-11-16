@@ -1,4 +1,5 @@
-# Chronolabs Cooperative ~ XCP - Fractal Checksum 
+## Chronolabs Cooperative presents
+# eXtensible Checksum Process (XCP) 
 ## Fractal Bitwise Checksum/HashInfo Code
 ### Author: Dr. Simon Antony Roberts (AU) <simon@snails.email>
 
