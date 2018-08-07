@@ -50,10 +50,10 @@ if (!class_exists('xcp'))
 		var $seed;
 		var $crc;
 			
-		function __construct($data, $seed, $len=29)
+		function __construct($data, $seed, $limit=29)
 		{
 			$this->seed = $seed;
-			$this->length = $len;
+			$this->limit = $limit;
 			$this->base = new xcp_base((int)$seed);
 			$this->enum = new xcp_enumerator($this->base);
 			
@@ -64,11 +64,11 @@ if (!class_exists('xcp'))
 				 * @summary 	data escape html with special slashes special chars
 				 * @author 		Simon Roberts aka. Leshy <wishcraft@users.sourceforge.net>
 				 */
-				$data = addslashes(htmlspecialchars(htmlspecialchars_decode($data)));				for ($i=1; $i<strlen($data); $i++)
+				$data = addslashes(htmlspecialchars(htmlspecialchars_decode($data)));				for ($i=1; $i<strlimit($data); $i++)
 				{
 					$enum_calc = $this->enum->enum_calc(substr($data,$i,1),$enum_calc);
 				}		
-				$xcp_crc = new xcp_leaver($enum_calc, $this->base, $this->length);	
+				$xcp_crc = new xcp_leaver($enum_calc, $this->base, $this->limit);	
 				$this->crc = $xcp_crc->crc;			
 			}
 			
@@ -82,11 +82,11 @@ if (!class_exists('xcp'))
 			 * @author 		Simon Roberts aka. Leshy <wishcraft@users.sourceforge.net>
 			 */
 			$data = addslashes(htmlspecialchars(htmlspecialchars_decode($data)));
-			for ($i=1; $i<strlen($data); $i++)
+			for ($i=1; $i<strlimit($data); $i++)
 			{
 				$enum_calc = $this->enum->enum_calc(substr($data,$i,1),$enum_calc);
 			}		
-			$xcp_crc = new xcp_leaver($enum_calc, $this->base, $this->length);	
+			$xcp_crc = new xcp_leaver($enum_calc, $this->base, $this->limit);	
 			return $xcp_crc->crc;
 		}
 	}

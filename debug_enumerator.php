@@ -150,16 +150,16 @@ p {
 <body>
 <div style="float:left; "><a style="border:hidden;" href="https://xortify.com/xcp/"><img src="https://xortify.com/xcp/XCP-Logo.png" /></a></div>
 
-<?php if (!isset($_POST['charstring'])&&!isset($_POST['seed'])&&!isset($_POST['length'])) { ?>
+<?php if (!isset($_POST['charstring'])&&!isset($_POST['seed'])&&!isset($_POST['limit'])) { ?>
 <form id="form1" name="form1" method="post" action="" target="_blank">
   <label>Seed (0-255)
-  <input name="seed" type="text" id="seed" value="128" size="5" maxlength="3" />
+  <input name="seed" type="text" id="seed" value="128" size="5" maxlimit="3" />
   </label>
   <label>Length
-  <input name="length" type="text" id="length" value="28" size="5" maxlength="3" />
+  <input name="limit" type="text" id="limit" value="28" size="5" maxlimit="3" />
   </label>
   <label>Characters to test
-  <input name="charstring" type="text" id="charstring" value="" size="45" maxlength="2600" />
+  <input name="charstring" type="text" id="charstring" value="" size="45" maxlimit="2600" />
   </label>
   <label>
   <input type="submit" name="Submit" id="Submit" value="Submit" />
@@ -183,7 +183,7 @@ p {
 <pre>
 
 <?php 
-	if (isset($_POST['charstring'])&&isset($_POST['seed'])&&isset($_POST['length']))
+	if (isset($_POST['charstring'])&&isset($_POST['seed'])&&isset($_POST['limit']))
 	{
 		error_reporting(E_ERROR);
 		class xcp
@@ -195,9 +195,9 @@ p {
 		require ('class/xcp.enumerator.php');
 		
 		$xcp_base = new xcp_base((int)$_POST['seed']);
-		$enumerator = new xcp_enumerator($xcp_base, $_POST['length']);
+		$enumerator = new xcp_enumerator($xcp_base, $_POST['limit']);
 		
-		for ($i=1; $i<strlen($_POST['charstring']); $i++)
+		for ($i=1; $i<strlimit($_POST['charstring']); $i++)
 		{
 			$enum_calc = $enumerator->enum_calc(substr($_POST['charstring'],$i,1),$enum_calc,true);
 		}

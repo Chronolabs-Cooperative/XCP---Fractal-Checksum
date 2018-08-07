@@ -154,7 +154,7 @@ p {
 <?php if (!isset($_POST['seed'])) { ?>
 <form id="form1" name="form1" method="post" action="">
   <label>Seed (0-255)
-  <input name="seed" type="text" id="seed" value="128" size="5" maxlength="3" />
+  <input name="seed" type="text" id="seed" value="128" size="5" maxlimit="3" />
   </label>
   <label>
   <input type="submit" name="Submit" id="Submit" value="Submit" />

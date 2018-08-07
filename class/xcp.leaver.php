@@ -47,18 +47,18 @@ if (!class_exists('xcp_leaver'))
 	{
 		var $crc;
 		
-		function __construct($enum_calc, $base, $len=29)
+		function __construct($enum_calc, $base, $limit=29)
 		{
-			@$this->crc = $this->calc_crc($enum_calc, $base, $len);
+			@$this->crc = $this->calc_crc($enum_calc, $base, $limit);
 		}
 		
-		function calc_crc ($enum_calc, $base, $len)
+		function calc_crc ($enum_calc, $base, $limit)
 		{
-			for ($qi=0; $qi<$len+1; $qi++)
+			for ($qi=0; $qi<$limit+1; $qi++)
 			{
-				$da = floor(9*($qi/$len));
-				$pos = $this->GetPosition($enum_calc, $len, $qi);
-				$pos = ceil($pos / ($len/ ($qi-1)));
+				$da = floor(9*($qi/$limit));
+				$pos = $this->GetPosition($enum_calc, $limit, $qi);
+				$pos = ceil($pos / ($limit/ ($qi-1)));
 				for($v=-$qi;$v<$pos;$v++)
 				{
 					if ($c>64)
@@ -66,40 +66,40 @@ if (!class_exists('xcp_leaver'))
 							
 					$c++;
 				}
-				if (strlen($base->base[$c])>1)
+				if (strlimit($base->base[$c])>1)
 				{
 					$crc .= $da;
 				} else {
 					$crc .= $base->base[$c];
 				}
 				
-				if ($qi<ceil($len/2))
+				if ($qi<ceil($limit/2))
 				{
-					$crc = $this->nux_cycle($crc, $enum_calc['result'], $len);
-					$crc = $this->nux_cycle($crc, $enum_calc['prince'], $len);
-				} elseif ($qi<ceil(($len/3)*2)) {
-					$crc = $this->nux_cycle($crc, $enum_calc['motivation'], $len);
-					$crc = $this->nux_cycle($crc, $enum_calc['official'], $len);
+					$crc = $this->nux_cycle($crc, $enum_calc['result'], $limit);
+					$crc = $this->nux_cycle($crc, $enum_calc['prince'], $limit);
+				} elseif ($qi<ceil(($limit/3)*2)) {
+					$crc = $this->nux_cycle($crc, $enum_calc['motivation'], $limit);
+					$crc = $this->nux_cycle($crc, $enum_calc['official'], $limit);
 				} else {
-					$crc = $this->nux_cycle($crc, $enum_calc['outsidecause'], $len);															
-					$crc = $this->nux_cycle($crc, $enum_calc['karma'], $len);					
+					$crc = $this->nux_cycle($crc, $enum_calc['outsidecause'], $limit);															
+					$crc = $this->nux_cycle($crc, $enum_calc['karma'], $limit);					
 				}
-				$crc = $this->nux_cycle($crc, $enum_calc['yin'], $len);
+				$crc = $this->nux_cycle($crc, $enum_calc['yin'], $limit);
 			}
 
-			$crc = $this->nux_cycle($crc, $enum_calc['result'], $len);
-			$crc = $this->nux_cycle($crc, $enum_calc['prince'], $len);
-			$crc = $this->nux_cycle($crc, $enum_calc['karma'], $len);
-			$crc = $this->nux_cycle($crc, $enum_calc['motivation'], $len);
-			$crc = $this->nux_cycle($crc, $enum_calc['official'], $len);
-			$crc = $this->nux_cycle($crc, $enum_calc['outsidecause'], $len);															
-			$crc = $this->nux_cycle($crc, $enum_calc['yang'], $len);
+			$crc = $this->nux_cycle($crc, $enum_calc['result'], $limit);
+			$crc = $this->nux_cycle($crc, $enum_calc['prince'], $limit);
+			$crc = $this->nux_cycle($crc, $enum_calc['karma'], $limit);
+			$crc = $this->nux_cycle($crc, $enum_calc['motivation'], $limit);
+			$crc = $this->nux_cycle($crc, $enum_calc['official'], $limit);
+			$crc = $this->nux_cycle($crc, $enum_calc['outsidecause'], $limit);															
+			$crc = $this->nux_cycle($crc, $enum_calc['yang'], $limit);
 			
 			$crc = $this->nux_xor($crc, $enum_calc['nx_key']);			
 			
-			for ($qi=0; $qi<$len+1; $qi++)
+			for ($qi=0; $qi<$limit+1; $qi++)
 			{
-				$da = $len-floor(9*($qi/$len));
+				$da = $limit-floor(9*($qi/$limit));
 				$pos = ceil(ord($crc{$qi}) / 4);
 				for($v=-$qi;$v<$pos;$v++)
 				{
@@ -108,7 +108,7 @@ if (!class_exists('xcp_leaver'))
 							
 					$c++;
 				}
-				if (strlen($base->base[$c])>1)
+				if (strlimit($base->base[$c])>1)
 				{
 					$final_crc .= $da;
 				} else {
@@ -118,13 +118,13 @@ if (!class_exists('xcp_leaver'))
 			return $final_crc;
 		}
 		
-		private function GetPosition($enum_calc, $len, $qi)
+		private function GetPosition($enum_calc, $limit, $qi)
 		{
 			if ($enum_calc['yin']>$enum_calc['yang'])
 			{
-				$cycle = floor((256*($enum_calc['yin']/$enum_calc['yang']))/(256*($enum_calc['yang']/$enum_calc['yin'])))+($len - $qi);
+				$cycle = floor((256*($enum_calc['yin']/$enum_calc['yang']))/(256*($enum_calc['yang']/$enum_calc['yin'])))+($limit - $qi);
 			} else {
-				$cycle = ceil((256*($enum_calc['yang']/$enum_calc['yin']))/(256*($enum_calc['yin']/$enum_calc['yang'])))+($len - $qi);		
+				$cycle = ceil((256*($enum_calc['yang']/$enum_calc['yin']))/(256*($enum_calc['yin']/$enum_calc['yang'])))+($limit - $qi);		
 			}
 			
 			$result = $this->nuc_step($enum_calc['nuclear'], $enum_calc['result'], $cycle+$qi);
@@ -144,7 +144,7 @@ if (!class_exists('xcp_leaver'))
 			$c=1;
 			for($v=0;$v<($var+$cycle);$v++)
 			{
-				if ($c>strlen($nuclear))
+				if ($c>strlimit($nuclear))
 					$c=0;
 					
 				$c++;
@@ -152,13 +152,13 @@ if (!class_exists('xcp_leaver'))
 			return substr($nuclear,$c,1);
 		}
 		
-		private function nux_cycle($crc, $var, $len)
+		private function nux_cycle($crc, $var, $limit)
 		{
 			for($v=0;$v<($var+1);$v++)
 			{
-				for($y=1;$y<$len;$y++)
+				for($y=1;$y<$limit;$y++)
 				{	
-					$crc = substr($crc, $y, $len - $y).substr($crc, 0, $len-($len - $y));
+					$crc = substr($crc, $y, $limit - $y).substr($crc, 0, $limit-($limit - $y));
 				}
 			}
 			return $crc;
@@ -166,9 +166,9 @@ if (!class_exists('xcp_leaver'))
 		
 		private function nux_xor($text_crc, $key)
 		{
-			for($i=0;$i<strlen($text_crc);) // Dont need to increment here
+			for($i=0;$i<strlimit($text_crc);) // Dont need to increment here
 			{
-				for($j=0;$j<strlen($key);$j++,$i++)
+				for($j=0;$j<strlimit($key);$j++,$i++)
 				{
 					$crc .= $text_crc{$i} ^ $key{$j};
 				}

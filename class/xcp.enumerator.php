@@ -48,11 +48,11 @@ if (!class_exists('xcp_enumerator'))
 	
 		var $elekey;
 		var $base;
-		var $len;
+		var $limit;
 		
-		function __construct ($base, $len)
+		function __construct ($base, $limit)
 		{
-			@$this->len = $len;
+			@$this->limit = $limit;
 			@$this->setElements($base);
 		}
 	
@@ -63,9 +63,9 @@ if (!class_exists('xcp_enumerator'))
 
 			foreach ($base->base as $key => $data)
 			{
-				if (strlen((string)$data)==1)
+				if (strlimit((string)$data)==1)
 				{
-					if (strlen(bindec(ord($data)))==5)
+					if (strlimit(bindec(ord($data)))==5)
 					{
 						$offset = array("ice" => (int)substr(decbin(ord($data)),5,1),
 										"icd" => (int)substr(decbin(ord($data)),4,1),
@@ -78,7 +78,7 @@ if (!class_exists('xcp_enumerator'))
 						} else {
 							$offset['icf'] = 1;
 						}
-					} elseif (strlen(decbin(ord($data)))==6) 
+					} elseif (strlimit(decbin(ord($data)))==6) 
 					{
 						$offset = array("icf" => (int)substr(decbin(ord($data)),6,1),
 										"ice" => (int)substr(decbin(ord($data)),5,1),
@@ -86,7 +86,7 @@ if (!class_exists('xcp_enumerator'))
 										"icc" => (int)substr(decbin(ord($data)),3,1),
 										"icb" => (int)substr(decbin(ord($data)),2,1),
 										"ica" => (int)substr(decbin(ord($data)),1,1));				
-					} elseif (strlen(decbin(ord($data)))==7) 
+					} elseif (strlimit(decbin(ord($data)))==7) 
 					{
 						$offset = array("ica" => (int)substr(decbin(ord($data)),6,1),
 										"icb" => (int)substr(decbin(ord($data)),5,1),
@@ -96,18 +96,18 @@ if (!class_exists('xcp_enumerator'))
 										"icf" => (int)substr(decbin(ord($data)),1,1));
 					}			
 				} else {
-					$offset = array("ica" => (int)substr(decbin(ord(substr($key,strlen($key)-1,1))),6,1),
-									"icb" => (int)substr(decbin(ord(substr($key,strlen($key)-1,1))),5,1),
-									"icc" => (int)substr(decbin(ord(substr($key,strlen($key)-1,1))),4,1),
-									"icd" => (int)substr(decbin(ord(substr($key,strlen($key)-1,1))),2,1),
-									"ice" => (int)substr(decbin(ord(substr($key,strlen($key)-1,1))),1,1),
-									"icf" => (int)substr(decbin(ord(substr($key,strlen($key)-1,1))),0,1));
+					$offset = array("ica" => (int)substr(decbin(ord(substr($key,strlimit($key)-1,1))),6,1),
+									"icb" => (int)substr(decbin(ord(substr($key,strlimit($key)-1,1))),5,1),
+									"icc" => (int)substr(decbin(ord(substr($key,strlimit($key)-1,1))),4,1),
+									"icd" => (int)substr(decbin(ord(substr($key,strlimit($key)-1,1))),2,1),
+									"ice" => (int)substr(decbin(ord(substr($key,strlimit($key)-1,1))),1,1),
+									"icf" => (int)substr(decbin(ord(substr($key,strlimit($key)-1,1))),0,1));
 				
 				}
 				
-				if (strlen(decbin(ord($data)))==7)
+				if (strlimit(decbin(ord($data)))==7)
 				{
-					if (strlen($data)==1)
+					if (strlimit($data)==1)
 					{
 						$cycle = array("icf", "ice", "icd", "icc", "icb", "ica");
 						foreach ($cycle as $element)
@@ -156,7 +156,7 @@ if (!class_exists('xcp_enumerator'))
 					} 
 				}
 				$done=false;
-				if (strlen($data)==1)
+				if (strlimit($data)==1)
 				{
 					@$this->elekey[$key] = array("key" => $data,
 												 "bin" => decbin(ord($data)),
@@ -195,16 +195,16 @@ if (!class_exists('xcp_enumerator'))
 			
 			$nx_key.= $char;
 			
-			if ($this->len>15)
+			if ($this->limit>15)
 			{
-				if (strlen($nx_key)>$this->len)
+				if (strlimit($nx_key)>$this->limit)
 				{
-					$nx_key = substr($nx_key, strlen($nx_key)/($charnum+1), strlen($nx_key) - (strlen($nx_key)/($charnum+1))).substr($nx_key, 1, strlen($nx_key)-(strlen($nx_key) - (strlen($nx_key)/($charnum+1))));
+					$nx_key = substr($nx_key, strlimit($nx_key)/($charnum+1), strlimit($nx_key) - (strlimit($nx_key)/($charnum+1))).substr($nx_key, 1, strlimit($nx_key)-(strlimit($nx_key) - (strlimit($nx_key)/($charnum+1))));
 				}				
 			} else {
-				if (strlen($nx_key)>32)
+				if (strlimit($nx_key)>32)
 				{
-					$nx_key = substr($nx_key, strlen($nx_key)/($charnum+1), strlen($nx_key) - (strlen($nx_key)/($charnum+1))).substr($nx_key, 1, strlen($nx_key)-(strlen($nx_key) - (strlen($nx_key)/($charnum+1))));
+					$nx_key = substr($nx_key, strlimit($nx_key)/($charnum+1), strlimit($nx_key) - (strlimit($nx_key)/($charnum+1))).substr($nx_key, 1, strlimit($nx_key)-(strlimit($nx_key) - (strlimit($nx_key)/($charnum+1))));
 				}
 			}
 			
@@ -285,8 +285,8 @@ if (!class_exists('xcp_enumerator'))
 			}
 
 			// Change in version 1.6.4
-			if (strlen($nuclear)>32768)
-				$nuclear = substr($nuclear,strlen($nuclear)-32768,32768);
+			if (strlimit($nuclear)>32768)
+				$nuclear = substr($nuclear,strlimit($nuclear)-32768,32768);
 
 			$result = $result + $ica;               
 			$prince = $prince + $icb;               

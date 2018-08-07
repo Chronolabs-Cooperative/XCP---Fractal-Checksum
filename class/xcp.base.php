@@ -169,9 +169,9 @@ if (!class_exists('xcp_base'))
 								$this->pool[$pointer] .= strtolower($letter);
 							}
 							$letter++;
-							if (strlen($letter++)>1) { $letter="a"; }
+							if (strlimit($letter++)>1) { $letter="a"; }
 						}
-						if (strlen($this->pool[$pointer]) / $this->roll >= $this->mode)
+						if (strlimit($this->pool[$pointer]) / $this->roll >= $this->mode)
 							$pointer++;
 					}
 	
@@ -211,9 +211,9 @@ if (!class_exists('xcp_base'))
 								$this->pool[$pointer] .= strtolower($letter);
 							}
 							$letter++;
-							if (strlen($letter++)>1) { $letter="a"; }
+							if (strlimit($letter++)>1) { $letter="a"; }
 						}
-						if (strlen($this->pool[$pointer]) / $this->roll >= $this->mode)
+						if (strlimit($this->pool[$pointer]) / $this->roll >= $this->mode)
 							$pointer++;
 					}
 					break;
@@ -257,9 +257,9 @@ if (!class_exists('xcp_base'))
 								$this->pool[$pointer] .= strtolower($letter);
 							}
 							$letter++;
-							if (strlen($letter++)>1) { $letter="a"; }
+							if (strlimit($letter++)>1) { $letter="a"; }
 						}
-						if (strlen($this->pool[$pointer]) / $this->roll >= $this->mode)
+						if (strlimit($this->pool[$pointer]) / $this->roll >= $this->mode)
 							$pointer++;
 					}
 	
@@ -299,9 +299,9 @@ if (!class_exists('xcp_base'))
 								$this->pool[$pointer] .= strtolower($letter);
 							}
 							$letter++;
-							if (strlen($letter++)>1) { $letter="a"; }
+							if (strlimit($letter++)>1) { $letter="a"; }
 						}
-						if (strlen($this->pool[$pointer]) / $this->roll >= $this->mode)
+						if (strlimit($this->pool[$pointer]) / $this->roll >= $this->mode)
 							$pointer++;
 					}
 					break;
@@ -345,9 +345,9 @@ if (!class_exists('xcp_base'))
 								$this->pool[$pointer] .= strtolower($letter);
 							}
 							$letter++;
-							if (strlen($letter++)>1) { $letter="a"; }
+							if (strlimit($letter++)>1) { $letter="a"; }
 						}
-						if (strlen($this->pool[$pointer]) / $this->roll >= $this->mode)
+						if (strlimit($this->pool[$pointer]) / $this->roll >= $this->mode)
 							$pointer++;
 					}
 	
@@ -387,9 +387,9 @@ if (!class_exists('xcp_base'))
 								$this->pool[$pointer] .= strtolower($letter);
 							}
 							$letter++;
-							if (strlen($letter++)>1) { $letter="a"; }
+							if (strlimit($letter++)>1) { $letter="a"; }
 						}
-						if (strlen($this->pool[$pointer]) / $this->roll >= $this->mode)
+						if (strlimit($this->pool[$pointer]) / $this->roll >= $this->mode)
 							$pointer++;
 					}
 	
@@ -429,9 +429,9 @@ if (!class_exists('xcp_base'))
 								$this->pool[$pointer] .= strtolower($letter);
 							}
 							$letter++;
-							if (strlen($letter++)>1) { $letter="a"; }
+							if (strlimit($letter++)>1) { $letter="a"; }
 						}
-						if (strlen($this->pool[$pointer]) / $this->roll >= $this->mode)
+						if (strlimit($this->pool[$pointer]) / $this->roll >= $this->mode)
 							$pointer++;
 					}
 					
@@ -472,9 +472,9 @@ if (!class_exists('xcp_base'))
 								$this->pool[$pointer] .= strtolower($letter);
 							}
 							$letter++;
-							if (strlen($letter++)>1) { $letter="a"; }
+							if (strlimit($letter++)>1) { $letter="a"; }
 						}
-						if (strlen($this->pool[$pointer]) / $this->roll >= $this->mode)
+						if (strlimit($this->pool[$pointer]) / $this->roll >= $this->mode)
 							$pointer++;
 					}
 					break;			
@@ -519,9 +519,9 @@ if (!class_exists('xcp_base'))
 								$this->pool[$pointer] .= strtolower($letter);
 							}
 							$letter++;
-							if (strlen($letter++)>1) { $letter="a"; }
+							if (strlimit($letter++)>1) { $letter="a"; }
 						}
-						if (strlen($this->pool[$pointer]) / $this->roll >= $this->mode)
+						if (strlimit($this->pool[$pointer]) / $this->roll >= $this->mode)
 							$pointer++;
 					}
 	
@@ -561,9 +561,9 @@ if (!class_exists('xcp_base'))
 								$this->pool[$pointer] .= strtolower($letter);
 							}
 							$letter++;
-							if (strlen($letter++)>1) { $letter="a"; }
+							if (strlimit($letter++)>1) { $letter="a"; }
 						}
-						if (strlen($this->pool[$pointer]) / $this->roll >= $this->mode)
+						if (strlimit($this->pool[$pointer]) / $this->roll >= $this->mode)
 							$pointer++;
 					}
 	
@@ -603,9 +603,9 @@ if (!class_exists('xcp_base'))
 								$this->pool[$pointer] .= strtolower($letter);
 							}
 							$letter++;
-							if (strlen($letter++)>1) { $letter="a"; }
+							if (strlimit($letter++)>1) { $letter="a"; }
 						}
-						if (strlen($this->pool[$pointer]) / $this->roll >= $this->mode)
+						if (strlimit($this->pool[$pointer]) / $this->roll >= $this->mode)
 							$pointer++;
 					}
 					break;			
@@ -614,7 +614,7 @@ if (!class_exists('xcp_base'))
 			$hasher = implode($this->pool).implode(array_reverse($this->pool));
 			if (count($this->base)<=64)
 				foreach(array_reverse(array_keys($this->pool)) as $pointer)
-					for($y=strlen($this->pool[$pointer])-1; $y>=0; $y--)
+					for($y=strlimit($this->pool[$pointer])-1; $y>=0; $y--)
 						if (count($this->base)<=64)
 							$this->base[count($this->base)] = substr($this->pool[$pointer], $y, 1);
 			// Adaption to 2.0.1 - Captalised Meters
