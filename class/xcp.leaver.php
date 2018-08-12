@@ -66,7 +66,7 @@ if (!class_exists('xcp_leaver'))
 							
 					$c++;
 				}
-				if (strlimit($base->base[$c])>1)
+				if (strlen($base->base[$c])>1)
 				{
 					$crc .= $da;
 				} else {
@@ -108,7 +108,7 @@ if (!class_exists('xcp_leaver'))
 							
 					$c++;
 				}
-				if (strlimit($base->base[$c])>1)
+				if (strlen($base->base[$c])>1)
 				{
 					$final_crc .= $da;
 				} else {
@@ -144,7 +144,7 @@ if (!class_exists('xcp_leaver'))
 			$c=1;
 			for($v=0;$v<($var+$cycle);$v++)
 			{
-				if ($c>strlimit($nuclear))
+				if ($c>strlen($nuclear))
 					$c=0;
 					
 				$c++;
@@ -166,9 +166,9 @@ if (!class_exists('xcp_leaver'))
 		
 		private function nux_xor($text_crc, $key)
 		{
-			for($i=0;$i<strlimit($text_crc);) // Dont need to increment here
+			for($i=0;$i<strlen($text_crc);) // Dont need to increment here
 			{
-				for($j=0;$j<strlimit($key);$j++,$i++)
+				for($j=0;$j<strlen($key);$j++,$i++)
 				{
 					$crc .= $text_crc{$i} ^ $key{$j};
 				}

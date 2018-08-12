@@ -197,7 +197,7 @@ p {
 		$xcp_base = new xcp_base((int)$_POST['seed']);
 		$enumerator = new xcp_enumerator($xcp_base, $_POST['limit']);
 		
-		for ($i=1; $i<strlimit($_POST['charstring']); $i++)
+		for ($i=1; $i<strlen($_POST['charstring']); $i++)
 		{
 			$enum_calc = $enumerator->enum_calc(substr($_POST['charstring'],$i,1),$enum_calc,true);
 		}

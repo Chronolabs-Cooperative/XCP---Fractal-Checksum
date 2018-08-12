@@ -64,7 +64,7 @@ if (!class_exists('xcp'))
 				 * @summary 	data escape html with special slashes special chars
 				 * @author 		Simon Roberts aka. Leshy <wishcraft@users.sourceforge.net>
 				 */
-				$data = addslashes(htmlspecialchars(htmlspecialchars_decode($data)));				for ($i=1; $i<strlimit($data); $i++)
+				$data = addslashes(htmlspecialchars(htmlspecialchars_decode($data)));				for ($i=1; $i<strlen($data); $i++)
 				{
 					$enum_calc = $this->enum->enum_calc(substr($data,$i,1),$enum_calc);
 				}		
@@ -82,7 +82,7 @@ if (!class_exists('xcp'))
 			 * @author 		Simon Roberts aka. Leshy <wishcraft@users.sourceforge.net>
 			 */
 			$data = addslashes(htmlspecialchars(htmlspecialchars_decode($data)));
-			for ($i=1; $i<strlimit($data); $i++)
+			for ($i=1; $i<strlen($data); $i++)
 			{
 				$enum_calc = $this->enum->enum_calc(substr($data,$i,1),$enum_calc);
 			}		
